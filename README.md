@@ -19,48 +19,25 @@ STEP-5: Display the cipher text obtained above.
 
 ```
 #include <stdio.h>
-#include <ctype.h>
 #include <string.h>
-
-void encode(char *str, int offset, char *result) {
-    int i;
-    int length = strlen(str);
-    offset = offset % 26 + 26;
-    
-    for (i = 0; i < length; i++) {
-        if (isalpha(str[i])) {
-            if (isupper(str[i])) {
-                result[i] = 'A' + (str[i] - 'A' + offset) % 26;
-            } else {
-                result[i] = 'a' + (str[i] - 'a' + offset) % 26;
-            }
-        } else {
-            result[i] = str[i];
-        }
+void caesarCipher(char *text, int shift) 
+{
+    for (int i = 0; text[i]; i++) 
+    {
+        if (text[i] >= 'A' && text[i] <= 'Z')
+        text[i] = ((text[i]- 'A' + shift) % 26) + 'A';
+        
     }
-    result[length] = '\0'; 
-}
-
-void decode(char *str, int offset, char *result) {
-
-    encode(str, 26 - (offset % 26), result);
-}
-
-int main() {
-    char msg[] = "Hello welcome to Security Laboratory";
-    char encoded[256];
-    char decoded[256];
-    
-    printf("Simulation of Caesar Cipher\n");
-    printf("Input message: %s\n", msg);
-    
-    encode(msg, 12, encoded);
-    printf("Encoded message: %s\n", encoded);
-    
-    decode(encoded, 12, decoded);
-    printf("Decoded message: %s\n", decoded);
-    
+ }
+int main() 
+{
+    char text[] = "VARSHA";
+    caesarCipher(text, 3);
+    printf("Encrypted Message: %s\n", text);
+    caesarCipher(text,-3);
+    printf("Decrypted Message: %s\n", text);
     return 0;
+    
 }
 ```
 
